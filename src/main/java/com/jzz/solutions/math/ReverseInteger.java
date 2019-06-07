@@ -28,24 +28,22 @@ package com.jzz.solutions.math;
  */
 public class ReverseInteger {
     public int reverse(int x){
-        int result = 0, lastResult, remain;
+        int result = 0, remain;
         while(x != 0){
             remain = x % 10;
             x /= 10;
-            lastResult = result;
-            result = result * 10 ;
-            System.out.println(result);
-            result += remain;
-            if((lastResult > 0 && result < 0) || (lastResult < 0 && result > 0)){//overflow
+            if(Integer.MAX_VALUE/10 < result || (Integer.MAX_VALUE/10 == result && remain > 7)){
                 return 0;
             }
+            if(Integer.MIN_VALUE/10 > result || (Integer.MIN_VALUE/10 == result && remain < -8)){
+                return 0;
+            }
+            result = result * 10 + remain;
         }
         return result;
     }
 
     public static void main(String[] args) {
         System.out.println(new ReverseInteger().reverse(1534236469));
-//        System.out.println(Integer.toBinaryString(1056389758));
-        System.out.println(Integer.MAX_VALUE);
     }
 }
